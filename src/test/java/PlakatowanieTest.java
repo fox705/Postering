@@ -4,6 +4,10 @@ import org.testng.AssertJUnit;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.StringTokenizer;
+
+import static org.testng.Assert.assertEquals;
 
 
 public class PlakatowanieTest {
@@ -12,6 +16,14 @@ public class PlakatowanieTest {
     String path = "src/main/resources/in/";
     String resultPath = "src/main/resources/out/";
 
+    @Test
+    public void TestAlgo() {
+        try {
+            assertEquals(readFileInputAlgo("pla4ocen"), readFileOutput("pla4ocen"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void TestPlacatowanie() {
@@ -81,6 +93,20 @@ public class PlakatowanieTest {
     public int readFileInput(String name) throws IOException {
         BufferedReader in = new BufferedReader(new FileReader(path + name + ".in"));
         int result = Plakatowanie.Postering(in);
+        return result;
+    }
+
+    public int readFileInputAlgo(String name) throws IOException {
+        BufferedReader in = new BufferedReader(new FileReader(path + name + ".in"));
+        int n = Integer.parseInt(in.readLine());
+        LinkedList<Integer> ints = new LinkedList<>();
+        for (int i = 0; i < n; i++) {
+            StringTokenizer st = new StringTokenizer(in.readLine());
+            st.nextToken();
+            ints.add(Integer.valueOf(st.nextToken()));
+
+        }
+        int result = Algorithm.countPosters(ints);
         return result;
     }
 

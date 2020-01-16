@@ -67,23 +67,21 @@ class City {
 
         for (int i = 0; i < no; i++) {
             StringTokenizer st = new StringTokenizer(in.readLine());
+
             while (st.hasMoreElements()) {
-                buildings.add(new Building(Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken())));
+                st.nextToken();
+                buildings.add(new Building(Integer.parseInt(st.nextToken())));
             }
         }
-
-        in.close();
     }
 
 }
 
 class Building {
 
-    int lenght;
     int high;
 
-    public Building(int lenght, int high) {
-        this.lenght = lenght;
+    public Building(int high) {
         this.high = high;
     }
 
