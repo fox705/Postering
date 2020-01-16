@@ -27,6 +27,7 @@ public class BinarySearchTree {
         bst.tree.display(bst.tree.root);
         System.out.println("\n" + bst.tree.root.data);
         bst.tree.root = bst.tree.buildTree(bst.tree.root);
+        bst.tree.delete(3);
         System.out.println("Preorder traversal of balanced BST is :");
         bst.tree.display(bst.tree.root);
 
@@ -118,6 +119,53 @@ class BST {
         int countRight = nodesGreaterThanX(node.right, k);
 
         return (node.data > k ? 1 : 0) + countLeft + countRight;
+    }
+
+    public boolean deleteGreaterThanX(int id){
+        Node parent = root;
+        Node current = root;
+        boolean isLeftChild = false;
+        while (current.data != id) {
+            parent = current;
+            if (current.data > id) {
+                isLeftChild = true;
+                current = current.left;
+            } else {
+                isLeftChild = false;
+                current = current.right;
+            }
+            if (current == null) {
+                return false;
+            }
+
+
+        }
+
+        if(current.data == id){
+            if(current.left.data > id){
+                current.left = null;
+            } else if (current.right.data > id){
+                current.right = null;
+            }
+        }else if (current.data > id){
+            current = null;
+            parent.left = null;
+            parent.right = null;
+        }
+
+
+        if (current.left == null && current.right == null) {
+            if (current == root) {
+                root = null;
+            }
+            if (isLeftChild == true) {
+                parent.left = null;
+            } else {
+                parent.right = null;
+            }
+        }
+
+        return true;
     }
 
     public boolean delete(int id) {
